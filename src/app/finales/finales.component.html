@@ -1,0 +1,57 @@
+<h2>Datos Clientes</h2>
+<hr>
+<div class="row">
+    <div class="col-4">
+        <label for="">Pais</label>
+        <select [(ngModel)]="varcbPais" (change)="onChangeCBPais()" class="form-control" name="cars" id="cars">
+            <option value="-1"></option>
+            <option value="0">Venezuela</option>
+            <option value="1">Panama</option>
+            <option value="2">Republica Dominicana</option>
+            <option value="3">USA</option>
+        </select>
+        <div #divComboRiesgo>
+            <label for="">Cat Riesgo</label>
+            <!-- <select [(ngModel)]="valorRiesgo" #seleccionriesgo (change)="onChangeCBRiesgo()" class="form-control" name="cars" id="cars"> -->
+            <select [(ngModel)]="valorRiesgo"  class="form-control" name="cars" id="cars">
+                <option value="-1"></option>
+                <option value="1">Bajo</option>
+                <option value="2">Medio</option>
+                <option value="3">Alto</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- <div [ngStyle]="{'background-image':  value ? image : otherImage }"></div> -->
+    <div #contenedorRiesgo class="col-6">
+        <div class="row">
+            <div class="col-auto">
+                <h5>Riesgos</h5>
+                <input [(ngModel)]="txtBajo" [disabled]='valorRiesgo != 1' type="text" class="form-control" placeholder="texto riesgo bajo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <label for=""></label>
+                <input [(ngModel)]="txtMedio" [disabled]='valorRiesgo != 2' type="text" class="form-control" placeholder="texto riesgo medio">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <label for=""></label>
+                <input [(ngModel)]="txtAlto" [disabled]='valorRiesgo != 3' type="text" class="form-control" placeholder="texto riesgo alto">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input [(ngModel)]="txtconyugue" class="form-control" type="text" name="" id="" placeholder="conyugue">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-auto">
+        <app-adicionales></app-adicionales>
+    </div>
+</div>
