@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { InstruccionComponentService } from './adicionales/instruccion/instruccion.service';
 
 @Component({
   selector: 'app-finales',
@@ -22,11 +23,16 @@ export class FinalesComponent implements OnInit {
 
   
   
-  constructor(private renderPresentacion : Renderer2) {
+  constructor(private renderPresentacion : Renderer2, private instruccionSrv : InstruccionComponentService) {
 
   }
 
   ngOnInit(): void {
+
+    let arreglo : string[] = ["SAL001","PEPS11","BAN001","PDV123"];  
+  
+    this.instruccionSrv.txtInstruccion = arreglo[2];
+    
   }
   
   onChangeCBPais( ){

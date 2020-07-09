@@ -1,16 +1,33 @@
-<!-- <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#home">Direccion</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu1">instrucciones</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu2">Riesgo</a>
-    </li>
-  </ul>
- -->
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{active: tabSeleccionada == 1}"  (click)="onClickSegment(1)" data-toggle="tab" >Direccion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{active: tabSeleccionada == 2}"  (click)="onClickSegment(2)" data-toggle="tab" >instrucciones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{active: tabSeleccionada == 3}"  (click)="onClickSegment(3)" data-toggle="tab" >Riesgo</a>
+        </li>
+      </ul>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <app-direccion *ngIf="tabSeleccionada == 1"></app-direccion>
+      <app-instruccion *ngIf="tabSeleccionada == 2"></app-instruccion>
+      <app-riesgo *ngIf="tabSeleccionada == 3" ></app-riesgo>
+
+      <!-- <app-workout *ngIf="tabSeleccionada == 1"></app-workout>
+      <app-nutrition *ngIf="tabSeleccionada == 2"></app-nutrition> -->
+    </div>
+  </div>
 
 
 
- <lsy-tabla-la  [columnas]="dtColumnas" ></lsy-tabla-la>
+
+
+
+ <!-- <lsy-tabla-la  [columnas]="dtColumnas" ></lsy-tabla-la> -->
