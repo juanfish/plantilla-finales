@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { FinalesComponent } from './finales/finales.component';
 import { AdicionalesComponent } from './finales/adicionales/adicionales.component';
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorIntercept } from '@laranda/lib-sysutil';
+import { SysutilModule } from '@laranda/lib-sysutil';
 
 @NgModule({
   declarations: [
@@ -16,10 +19,18 @@ import { FormsModule } from "@angular/forms";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    SysutilModule
   
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorIntercept,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
