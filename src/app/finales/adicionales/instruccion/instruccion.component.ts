@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InstruccionComponentService } from './instruccion.service';
+import { ClienteComponentService } from '../../cliente.service';
+
 
 @Component({
   selector: 'app-instruccion',
@@ -7,13 +8,14 @@ import { InstruccionComponentService } from './instruccion.service';
   styleUrls: ['./instruccion.component.scss']
 })
 export class InstruccionComponent implements OnInit {
-  instrucciones : InstruccionComponentService
+  // instrucciones : InstruccionComponentService
 
-  constructor(private instruccionSrv : InstruccionComponentService) { }
+  constructor(private clienteSrv : ClienteComponentService) { 
+    
+  }
+
 
   ngOnInit(): void {
-    this.instrucciones = this.instruccionSrv;
-
   }
 
 

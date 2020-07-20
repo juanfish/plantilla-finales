@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClienteComponentService } from '../../cliente.service';
 
 @Component({
   selector: 'app-riesgo',
@@ -7,7 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RiesgoComponent implements OnInit {
   txtRiesgo : string;
-  constructor() { }
+  
+  cliente : Object = {};
+  dtColumnas: DataTables.ColumnSettings[] = [
+    { title: 'N°',    data: 'id' },
+    { title: 'Direccion',     data: 'Direccion' },
+    { title: 'Instruccion', data: 'Instruccion' },
+    { title: 'Riesgo', data: 'Riesgo' },
+    { title: 'Pais', data: 'Pais' }
+  ];
+
+
+  constructor( private clienteSrv : ClienteComponentService) { 
+     
+  }
+
+
 
   ngOnInit(): void {
   }

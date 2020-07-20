@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DireccionComponentService } from './direccion.services';
+import { ClienteComponentService } from '../../cliente.service';
+import { Cliente } from '../../cliente.model';
 
 @Component({
   selector: 'app-direccion',
@@ -7,18 +8,16 @@ import { DireccionComponentService } from './direccion.services';
   styleUrls: ['./direccion.component.scss']
 })
 export class DireccionComponent implements OnInit {
-  Direcciones : DireccionComponentService;
- 
- 
-  constructor( private direccionesSrv : DireccionComponentService) { 
 
+  cliente: Cliente ;
+  constructor(private clienteSrv: ClienteComponentService) {
     
   }
   
-  
   ngOnInit(): void {
-    this.Direcciones = this.direccionesSrv;
-    
+    console.log('componente direccion creado');
+    this.cliente = this.clienteSrv.clienteJSON[0];
+
   }
 
 }

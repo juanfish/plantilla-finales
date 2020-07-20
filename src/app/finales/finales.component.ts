@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { InstruccionComponentService } from './adicionales/instruccion/instruccion.service';
+import { HttpClient } from '@angular/common/http';
+import { ClienteComponentService } from './cliente.service';
+import { Cliente } from './cliente.model';
+
+// import { InstruccionComponentService } from './adicionales/instruccion/instruccion.service';
 
 @Component({
   selector: 'app-finales',
@@ -7,51 +11,100 @@ import { InstruccionComponentService } from './adicionales/instruccion/instrucci
   styleUrls: ['./finales.component.scss']
 })
 export class FinalesComponent implements OnInit {
-  valorRiesgo : number = -1;
-  txtconyugue : string;
+  valorRiesgo: number = -1;
+  txtconyugue: string;
+  varcbPais: number = -1;
 
-  // @ViewChild('cbPais') varcbPais : ElementRef;
-  varcbPais : number;
-  @ViewChild('divComboRiesgo') varcbRiesgo : ElementRef;
-  @ViewChild('contenedorRiesgo') varcntRiesgo : ElementRef;
+  status = false;
 
   txtBajo: string;
   txtMedio: string;
   txtAlto: string;
-  // @ViewChild('txtBajo') vartxtBajo : ElementRef;
-  // @ViewChild('seleccionriesgo') varseleccionriesgo : ElementRef;
 
-  
-  
-  constructor(private renderPresentacion : Renderer2, private instruccionSrv : InstruccionComponentService) {
+  @ViewChild('divComboRiesgo') varcbRiesgo: ElementRef;
+  @ViewChild('contenedorRiesgo') varcntRiesgo: ElementRef;
 
+
+  usuario = {nombre : 'juan', apellido : 'figuera'}
+  resultado : any;
+
+  // cliente: Cliente = {id : 0, Pais : 0, Riesgo : 0 , Direccion : '', Instruccion : '' } ;
+  cliente: Cliente;
+
+  dtColumnas: DataTables.ColumnSettings[] = [
+    { title: 'N°',    data: 'id' },
+    { title: 'Direccion',     data: 'Direccion' },
+    { title: 'Instruccion', data: 'Instruccion' },
+    { title: 'Riesgo', data: 'Riesgo' },
+    { title: 'Pais', data: 'Pais' }
+  ];
+
+
+  constructor(private renderPresentacion: Renderer2,
+    private http: HttpClient,
+    private clienteSrv: ClienteComponentService,
+  ) {
   }
 
   ngOnInit(): void {
+    
 
-    let arreglo : string[] = ["SAL001","PEPS11","BAN001","PDV123"];  
+
+    // 1.- llamada simple por susbcribe INI
+    // let obs = this.http.get<Cliente[]>('http://localhost:8000/Clientes')
+    // obs.subscribe(resultado => {
+
+    //   console.log('%c El valor de resultado es', 'color: blue;') ;
+    //   console.log( {resultado}) ;
+    //   this.resultado = resultado;
+      
+    //   this.clienteSrv.setClientes(resultado.slice()); // meto todo el arrego en el servicio, pero igual los objetos no son del tipo 'Cliente'
+
+    //   this.cliente = this.clienteSrv.clienteJSON[0];
+    //   this.status = true;     // con esto manipulo crear el componente de adicionales cuando ya tenga la data cargada, si no me da undefined por la asincronia
+    // })
+    // FIN
+
+    // 2.-  Declaracion de una promesa que ejecute el subscribe de siempre
+      let p = new Promise((resolve, reject) => {
+        let obs = this.http.get<Cliente[]>('http://localhost:8000/Clientes')
+        obs.subscribe(resultado => {
+          this.clienteSrv.setClientes(resultado.slice() ); // meto todo el arrego en el servicio, pero igual los objetos no son del tipo 'Cliente'          
+          console.log('termine de correr el subscribe dentro de la promesa');
+          this.cliente = this.clienteSrv.clienteJSON[0];
+          this.status = true;     // con esto manipulo crear el componente de adicionales cuando ya tenga la data cargada, si no me da undefined por la asincronia
+          resolve(this.status);  // necesito el resolve como respuesta de que todo esta bien en la promesa
+        })
   
-    this.instruccionSrv.txtInstruccion = arreglo[2];
-    
+      })
+      
+      // Aqui ejecuto la promesa con la variable 'p'
+      p.then(() => console.log('cargado todo'))  // me meto por aca gracias al resolve
+      .catch(()=>{
+        console.log('Se daño todo');
+      });
+    // FIN DEL 2   
+      
   }
-  
-  onChangeCBPais( ){
-    
-    // const x =  this.varcbPais;
-    
-    if (this.varcbPais == 1) {
-      this.renderPresentacion.setStyle(this.varcbRiesgo.nativeElement , 'visibility' , 'hidden');
-      this.renderPresentacion.setStyle(this.varcntRiesgo.nativeElement , 'visibility' , 'hidden');
-    } else{
-      this.renderPresentacion.setStyle(this.varcbRiesgo.nativeElement , 'visibility' , 'visible');
-      this.renderPresentacion.setStyle(this.varcntRiesgo.nativeElement , 'visibility' , 'visible');
+
+  dameValor() {
+    // hago nada
+  }
+
+
+
+  onChangeCBPais() {
+    if (this.cliente.Pais === 1) {
+      this.renderPresentacion.setStyle(this.varcbRiesgo.nativeElement, 'visibility', 'hidden');
+      this.renderPresentacion.setStyle(this.varcntRiesgo.nativeElement, 'visibility', 'hidden');
+
+    } else {
+      this.renderPresentacion.setStyle(this.varcbRiesgo.nativeElement, 'visibility', 'visible');
+      this.renderPresentacion.setStyle(this.varcntRiesgo.nativeElement, 'visibility', 'visible');
+
     }
-  
+
   }
 
-  // onChangeCBRiesgo(){
-  //  this.valorRiesgo =  this.varseleccionriesgo.nativeElement.value;
-
-  // }
 
 }

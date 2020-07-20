@@ -3,17 +3,18 @@
 <div class="row">
     <div class="col-4">
         <label for="">Pais</label>
-        <select [(ngModel)]="varcbPais" (change)="onChangeCBPais()" class="form-control" name="cars" id="cars">
+        <!-- <select [(ngModel)]="varcbPais" (change)="onChangeCBPais()" class="form-control" name="cars" id="cars"> -->
+        <select [(ngModel)]="cliente.Pais" (change)="onChangeCBPais()" class="form-control" name="cars" id="cars">
             <option value="-1"></option>
-            <option value="0">Venezuela</option>
-            <option value="1">Panama</option>
-            <option value="2">Republica Dominicana</option>
-            <option value="3">USA</option>
+            <option value="1">Venezuela</option>
+            <option value="2">Panama</option>
+            <option value="3">Republica Dominicana</option>
+            <option value="4">USA</option>
         </select>
         <div #divComboRiesgo>
             <label for="">Cat Riesgo</label>
             <!-- <select [(ngModel)]="valorRiesgo" #seleccionriesgo (change)="onChangeCBRiesgo()" class="form-control" name="cars" id="cars"> -->
-            <select [(ngModel)]="valorRiesgo"  class="form-control" name="cars" id="cars">
+            <select [(ngModel)]="cliente.Riesgo"  class="form-control" name="cars" id="cars">
                 <option value="-1"></option>
                 <option value="1">Bajo</option>
                 <option value="2">Medio</option>
@@ -21,13 +22,17 @@
             </select>
         </div>
     </div>
+    <div class="col-4">
+        <input [(ngModel)]="this.cliente.Direccion" type="text" name="" id="" class="form-control" placeholder="direccion" >
+    </div>
 
     <!-- <div [ngStyle]="{'background-image':  value ? image : otherImage }"></div> -->
-    <div #contenedorRiesgo class="col-6">
+    <div #contenedorRiesgo class="col-4">
         <div class="row">
             <div class="col-auto">
                 <h5>Riesgos</h5>
                 <input [(ngModel)]="txtBajo" [disabled]='valorRiesgo != 1' type="text" class="form-control" placeholder="texto riesgo bajo">
+                <!-- [ngStyle]="{background-color: expression}"> -->
             </div>
         </div>
         <div class="row">
@@ -44,14 +49,17 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12">
-        <input [(ngModel)]="txtconyugue" class="form-control" type="text" name="" id="" placeholder="conyugue">
+        <button type="submit" (click)='dameValor();'>imprime</button>
     </div>
-</div>
+</div> -->
 
 <div class="row">
     <div class="col-auto">
-        <app-adicionales></app-adicionales>
+        <app-adicionales *ngIf="status" ></app-adicionales>
     </div>
 </div>
+
+<!-- <lsy-tabla-la [columnas]="dtColumnas" [datosX]='clienteService.clientes' ></lsy-tabla-la> -->
+<!-- <lsy-tabla-la [columnas]="dtColumnas" [datosX]='this.resultado'></lsy-tabla-la> -->

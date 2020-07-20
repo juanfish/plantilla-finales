@@ -7,8 +7,8 @@ import { FinalesComponent } from './finales/finales.component';
 import { AdicionalesComponent } from './finales/adicionales/adicionales.component';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { ErrorIntercept } from '@laranda/lib-sysutil';
-// import { SysutilModule } from '@laranda/lib-sysutil';
+import { ErrorIntercept } from '@laranda/lib-sysutil';
+import { SysutilModule } from '@laranda/lib-sysutil';
 import { RiesgoComponent } from './finales/adicionales/riesgo/riesgo.component';
 import { DireccionComponent } from './finales/adicionales/direccion/direccion.component';
 import { InstruccionComponent } from './finales/adicionales/instruccion/instruccion.component';
@@ -26,16 +26,17 @@ import { InstruccionComponent } from './finales/adicionales/instruccion/instrucc
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    // HttpClientModule,
-    // SysutilModule
+    HttpClientModule,
+    SysutilModule
   
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: ErrorIntercept,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorIntercept,
+      multi: true
+    
+    }
   ],
   bootstrap: [AppComponent]
 })
